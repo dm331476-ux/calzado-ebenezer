@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calzado Ebenezer - Panel de Gestión</title>
+    <link rel="stylesheet" href="css/estilos.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="dashboard-container">
+        
+        <aside class="sidebar-ebenezer">
+            <div class="sidebar-header">
+                <img src="img/logo.png" alt="Logo Calzado Ebenezer" style="width: 100px; height: auto; object-fit: contain;">
+                <h2>EBENEZER</h2>
+                <span class="user-badge" id="badgeRol">Vendedor</span>
+            </div>
+            <nav class="sidebar-menu">
+                <a href="#" id="menuVentas" class="menu-item activo">🛒 Catálogo de Ventas</a>
+                <a href="#" id="menuBodega" class="menu-item">📦 Control de bodega</a>
+                <a href="#" id="menuFabrica" class="menu-item">🏭 Producción de Fábrica</a>
+                <a href="#" id="menuAdmin" class="menu-item">⚙️ Area Administrativa</a>
+                <a href="index.html" class="menu-item salir">🚪 Cerrar Sesión</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            
+            <section class="seccion-catalogo">
+                <header class="content-header">
+                    <h1>Catálogo de Ventas</h1>
+                    <p>Selecciona los productos solicitados por el cliente</p>
+                </header>
+
+                <div class="grid-productos">
+                    <div class="tarjeta-zapato">
+                        <div class="imagen-zapato-placeholder">👟</div>
+                        <div class="info-zapato">
+                            <h3>Bota Cuero Elegante</h3>
+                            <p class="precio">$180.000</p>
+                            <p class="stock">Disponibles: 12 pares</p>
+                            <button class="btn-agregar-carrito" onclick="agregarAlCarrito('Bota Cuero Elegante', 180000)">Agregar a Venta</button>
+                        </div>
+                    </div>
+
+                    <div class="tarjeta-zapato">
+                        <div class="imagen-zapato-placeholder">👠</div>
+                        <div class="info-zapato">
+                            <h3>Tacón Estilo Ejecutivo</h3>
+                            <p class="precio">$145.000</p>
+                            <p class="stock">Disponibles: 8 pares</p>
+                            <button class="btn-agregar-carrito" onclick="agregarAlCarrito('Tacón Estilo Ejecutivo', 145000)">Agregar a Venta</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <aside class="panel-carrito">
+                <div class="cabecera-carrito">
+                    <h2>🛒 Carrito de Venta</h2>
+                </div>
+                <div class="lista-carrito" id="elementosCarrito">
+                    <p class="carrito-vacio">No hay productos en la venta actual.</p>
+                </div>
+                <div class="resumen-carrito">
+                    <div class="fila-total">
+                        <span>Total:</span>
+                        <span id="totalVenta">$0</span>
+                    </div>
+                    <button class="btn-facturar" id="btnFacturar" onclick="procesarFactura()">Generar Factura</button>
+                </div>
+            </aside>
+
+            <section class="seccion-inventario-bodega" style="display: none;">
+                <header class="content-header">
+                    <h1>Control de Inventario y Existencias</h1>
+                    <p>Monitoreo cuantitativo del calzado disponible en estantería</p>
+                </header>
+
+                <div class="contenedor-tabla">
+                    <table class="tabla-inventario">
+                        <thead>
+                            <tr>
+                                <th>Referencia</th>
+                                <th>Categoría</th>
+                                <th>Tallas</th>
+                                <th>Stock Actual</th>
+                                <th>Estado</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Bota Cuero Elegante</strong></td>
+                                <td>Caballero</td>
+                                <td>38, 39, 40, 42</td>
+                                <td class="cant-stock">12 pares</td>
+                                <td><span class="estado-indicador verde">Suficiente</span></td>
+                                <td><button class="btn-tabla-bodega" onclick="alert('Solicitando reabastecimiento para Bota Cuero')">Solicitar Stock</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tacón Estilo Ejecutivo</strong></td>
+                                <td>Dama</td>
+                                <td>35, 36, 37</td>
+                                <td class="cant-stock">8 pares</td>
+                                <td><span class="estado-indicador verde">Suficiente</span></td>
+                                <td><button class="btn-tabla-bodega" onclick="alert('Solicitando reabastecimiento para Tacón Ejecutivo')">Solicitar Stock</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Zapatilla Confort (Muestra)</strong></td>
+                                <td>Deportivo</td>
+                                <td>37, 38, 39</td>
+                                <td class="cant-stock en-alerta">3 pares</td>
+                                <td><span class="estado-indicador naranja">Crítico</span></td>
+                                <td><button class="btn-tabla-bodega urgente" onclick="alert('Pedido prioritario enviado a Fábrica')">Pedido Urgente</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="seccion-fabrica-produccion" style="display: none;">
+                <header class="content-header">
+                    <h1>Tablero de Producción y Manufactura</h1>
+                    <p>Monitoreo y avance de las órdenes de fabricación de calzado</p>
+                </header>
+
+                <div class="tablero-kanban">
+                    <div class="columna-kanban">
+                        <div class="cabecera-columna pendiente">
+                            <h3>⏳ Por Iniciar</h3>
+                        </div>
+                        <div class="lista-tarjetas" id="listaPendientes">
+                            <div class="tarjeta-orden" id="orden-101">
+                                <div class="orden-meta">ORDEN #101</div>
+                                <h4>Bota Cuero Elegante</h4>
+                                <p><strong>Cantidad:</strong> 20 Pares</p>
+                                <p><strong>Detalle:</strong> Tallas 38 al 40</p>
+                                <button class="btn-avanzar" onclick="avanzarOrden('101', 'proceso')">Iniciar Corte ➔</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="columna-kanban">
+                        <div class="columna-kanban">
+                            <div class="cabecera-columna proceso">
+                                <h3>⚙️ En Proceso</h3>
+                            </div>
+                            <div class="lista-tarjetas" id="listaProceso">
+                                <div class="tarjeta-orden" id="orden-102">
+                                    <div class="orden-meta">ORDEN #102</div>
+                                    <h4>Tacón Estilo Ejecutivo</h4>
+                                    <p><strong>Cantidad:</strong> 15 Pares</p>
+                                    <p><strong>Proceso:</strong> Montado y Costura</p>
+                                    <button class="btn-avanzar" onclick="avanzarOrden('102', 'terminado')">Terminar Lote ➔</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="columna-kanban">
+                        <div class="cabecera-columna terminado">
+                            <h3>✅ Terminado</h3>
+                        </div>
+                        <div class="lista-tarjetas" id="listaTerminados">
+                            <div class="tarjeta-orden completada" id="orden-100">
+                                <div class="orden-meta">ORDEN #100</div>
+                                <h4>Zapatilla Confort</h4>
+                                <p><strong>Cantidad:</strong> 30 Pares</p>
+                                <p class="estado-envio">📦 Listo para enviar a Bodega</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="js/autenticacion.js"></script>
+</body>
+</html>

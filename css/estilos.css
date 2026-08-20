@@ -1,0 +1,869 @@
+/* =========================================
+   1. Mis variables y imagen de fondo.
+   ========================================= */
+:root {
+    --cafe-ebenezer: #a35b42;
+    --cafe-oscuro: #5c3224;
+    --blanco-transp: rgba(255, 255, 255, 0.85);
+    --rojo-alerta: #d32f2f;
+    --gris-texto: #666666;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../img/zapatos-fondo.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    position: relative;
+}
+
+/* =========================================
+   2. Diseño de la caja del login de Ebenezer
+   ========================================= */
+.contenedor-login {
+    width: 100%;
+    max-width: 400px;
+    background: var(--blanco-transp);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 40px 30px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.login-header h1 {
+    color: var(--cafe-oscuro);
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+}
+
+.login-header p {
+    color: var(--gris-texto);
+    font-size: 0.9rem;
+    margin-bottom: 30px;
+    font-weight: 500;
+}
+
+/* Formulario */
+.form-login {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.grupo-input {
+    text-align: left;
+}
+
+.grupo-input label {
+    display: block;
+    color: var(--cafe-oscuro);
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.grupo-input input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid rgba(163, 91, 66, 0.3);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.7);
+    font-size: 1rem;
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+.grupo-input input:focus {
+    outline: none;
+    border-color: var(--cafe-ebenezer);
+    background: #fff;
+    box-shadow: 0 0 8px rgba(163, 91, 66, 0.2);
+}
+/* Contenedor relativo para posicionar el ojo encima del input */
+.contenedor-password-ojo {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+/* Forzamos al input a tener un espacio libre a la derecha para que no choque con el ojo */
+.contenedor-password-ojo input {
+    width: 100%;
+    padding-right: 45px; /* Espacio para el botón */
+}
+
+/* Botón transparente del ojito */
+.btn-ojo {
+    position: absolute;
+    right: 12px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    transition: transform 0.1s ease;
+}
+
+.btn-ojo:active {
+    transform: scale(0.9);
+}
+.btn-ingresar {
+    width: 100%;
+    padding: 14px;
+    background: var(--cafe-ebenezer);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background 0.3s ease, transform 0.1s ease;
+    margin-top: 10px;
+}
+
+.btn-ingresar:hover {
+    background: var(--cafe-oscuro);
+}
+
+.btn-ingresar:active {
+    transform: scale(0.98);
+}
+
+.login-footer {
+    margin-top: 25px;
+    font-size: 0.85rem;
+    color: var(--gris-texto);
+}
+
+.login-footer a {
+    color: var(--cafe-ebenezer);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.login-footer a:hover {
+    text-decoration: underline;
+}
+
+/* =========================================
+   3. Alerta de error general
+   ========================================= */
+.pantalla-oscura {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 9999;
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding: 30px;
+}
+
+.notificacion-ebenezer {
+    width: 340px;
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 16px;
+    box-shadow: -5px 10px 30px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+    border: 1px solid rgba(211, 47, 47, 0.2);
+    animation: slideInRight 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.cabecera-transparente {
+    padding: 20px 20px 15px 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: var(--rojo-alerta);
+}
+
+.icono-circular-rojo {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--rojo-alerta);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icono-circular-rojo span {
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.cabecera-transparente h2 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.linea-divisor-PNG {
+    width: 100%;
+    display: block;
+    height: auto;
+}
+
+.cuerpo-notificacion {
+    padding: 20px;
+    text-align: center;
+}
+
+.mensaje-italico {
+    font-style: italic;
+    color: #333;
+    font-size: 1.05rem;
+    font-weight: 500;
+}
+
+.contenedor-codigo {
+    background-color: #222;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 6px;
+    margin: 15px 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);
+}
+
+.etiqueta-codigo {
+    font-size: 0.8rem;
+    color: #aaa;
+    font-weight: 600;
+}
+
+.numero-codigo {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #ff5252;
+}
+
+.instruccion-gris {
+    color: var(--gris-texto);
+    font-size: 0.85rem;
+    margin-bottom: 20px;
+}
+
+.btn-reintentar-transp {
+    width: 100%;
+    padding: 12px;
+    background: var(--cafe-ebenezer);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background 0.2s ease;
+}
+
+.btn-reintentar-transp:hover {
+    background: var(--cafe-oscuro);
+}
+/* Estilo para el menú desplegable de los roles */
+.selector-rol-ebenezer {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid rgba(163, 91, 66, 0.3);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.85);
+    font-size: 1rem;
+    color: #333;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    /* Flecha personalizada de navegación */
+    background-image: url("data:image/svg+xml;utf8,<svg fill='%23a35b42' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+}
+
+.selector-rol-ebenezer:focus {
+    border-color: var(--cafe-ebenezer);
+    background: #fff;
+    box-shadow: 0 0 8px rgba(163, 91, 66, 0.2);
+}
+/* =========================================
+   4. ESTRUCTURA PRINCIPAL DEL DASHBOARD
+   ========================================= */
+.dashboard-container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(245, 241, 238, 0.95); /* Tono arena muy suave para el fondo del panel */
+    overflow: hidden;
+}
+
+/* =========================================
+   5. BARRA LATERAL (Sidebar)
+   ========================================= */
+.sidebar-ebenezer {
+    width: 280px;
+    background-color: var(--cafe-oscuro);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 20px;
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.15);
+    z-index: 10;
+}
+
+.sidebar-header {
+    text-align: center;
+    padding-bottom: 30px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 30px;
+}
+
+.sidebar-header h2 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+/* Etiqueta de Rol */
+.user-badge {
+    display: inline-block;
+    background-color: var(--cafe-ebenezer);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 100%;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 14px 18px;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.menu-item:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: white;
+}
+
+.menu-item.activo {
+    background-color: var(--cafe-ebenezer);
+    color: white;
+    box-shadow: 0 4px 10px rgba(163, 91, 66, 0.3);
+}
+
+.menu-item.salir {
+    margin-top: auto; /* Empuja el botón de cerrar sesión hacia abajo */
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 20px;
+    color: #ff8a8a;
+}
+
+.menu-item.salir:hover {
+    background-color: rgba(211, 47, 47, 0.15);
+    color: #ff5252;
+}
+
+/* =========================================
+   6. CONTENIDO PRINCIPAL (Catálogo)
+   ========================================= */
+.main-content {
+    flex: 1;
+    padding: 40px;
+    overflow-y: auto; /* Permite scroll si hay muchos productos */
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.content-header h1 {
+    color: var(--cafe-oscuro);
+    font-size: 2.2rem;
+    font-weight: 800;
+}
+
+.content-header p {
+    color: var(--gris-texto);
+    font-size: 1rem;
+    margin-top: 5px;
+}
+
+/* Grid de Productos */
+.grid-productos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 25px;
+}
+
+/* Tarjeta de Zapato Individual */
+.tarjeta-zapato {
+    background-color: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(163, 91, 66, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.tarjeta-zapato:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(163, 91, 66, 0.12);
+}
+
+.imagen-zapato-placeholder {
+    height: 180px;
+    background-color: #f9f6f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.info-zapato {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.info-zapato h3 {
+    color: var(--cafe-oscuro);
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.info-zapato .precio {
+    color: var(--cafe-ebenezer);
+    font-size: 1.25rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.info-zapato .stock {
+    font-size: 0.85rem;
+    color: #2e7d32; /* Verde para disponible */
+    font-weight: 600;
+    margin-bottom: 15px;
+    margin-top: auto; /* Mantiene el stock y el botón alineados al fondo */
+}
+
+.info-zapato .stock.agotado {
+    color: var(--rojo-alerta); /* Rojo si no hay existencias */
+}
+
+/* Botones de Tarjetas */
+.btn-agregar-carrito {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--cafe-ebenezer);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+    transition: background 0.2s ease;
+}
+
+.btn-agregar-carrito:hover {
+    background-color: var(--cafe-oscuro);
+}
+
+.btn-solicitar-fabrica {
+    background-color: #795548; /* Tono marrón alterno para órdenes de fábrica */
+}
+
+.btn-solicitar-fabrica:hover {
+    background-color: #5d4037;
+}
+/* =========================================
+   7. DISTRIBUCIÓN DEL CONTENIDO CON CARRITO
+   ========================================= */
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr 350px; /* Divide el catálogo (flexible) y el carrito (fijo de 350px) */
+    gap: 30px;
+    padding: 30px;
+    width: 100%;
+}
+
+.seccion-catalogo {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* =========================================
+   8. PANEL DEL CARRITO DE VENTAS
+   ========================================= */
+.panel-carrito {
+    background-color: white;
+    border-radius: 16px;
+    border: 1px solid rgba(163, 91, 66, 0.1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 60px); /* Ajustado a la altura de la pantalla */
+    overflow: hidden;
+}
+
+.cabecera-carrito {
+    background-color: var(--cafe-oscuro);
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.cabecera-carrito h2 {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.lista-carrito {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.carrito-vacio {
+    color: var(--gris-texto);
+    text-align: center;
+    font-style: italic;
+    margin-top: 50px;
+}
+
+/* Items individuales dentro del carrito */
+.item-carrito {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 12px;
+    border-bottom: 1px dashed rgba(163, 91, 66, 0.15);
+}
+
+.item-info h4 {
+    font-size: 0.95rem;
+    color: var(--cafe-oscuro);
+    margin-bottom: 3px;
+}
+
+.item-info p {
+    font-size: 0.85rem;
+    color: var(--cafe-ebenezer);
+    font-weight: 700;
+}
+
+.btn-eliminar-item {
+    background: none;
+    border: none;
+    color: var(--rojo-alerta);
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 5px;
+    transition: transform 0.2s;
+}
+
+.btn-eliminar-item:hover {
+    transform: scale(1.2);
+}
+
+/* Resumen del fondo */
+.resumen-carrito {
+    padding: 20px;
+    background-color: #fcfaf8;
+    border-top: 1px solid rgba(163, 91, 66, 0.1);
+}
+
+.fila-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--cafe-oscuro);
+    margin-bottom: 15px;
+}
+
+.btn-facturar {
+    width: 100%;
+    padding: 12px;
+    background-color: #2e7d32; /* Verde corporativo de éxito */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-facturar:hover {
+    background-color: #1b5e20;
+}
+/* =========================================
+   9. VISTA DE INVENTARIO (BODEGA)
+   ========================================= */
+.seccion-inventario-bodega {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.contenedor-tabla {
+    background-color: white;
+    border-radius: 12px;
+    border: 1px solid rgba(163, 91, 66, 0.15);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    overflow: hidden;
+}
+
+.tabla-inventario {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.95rem;
+}
+
+.tabla-inventario th {
+    background-color: var(--cafe-oscuro);
+    color: white;
+    padding: 15px 20px;
+    font-weight: 600;
+}
+
+.tabla-inventario td {
+    padding: 15px 20px;
+    border-bottom: 1px solid rgba(163, 91, 66, 0.08);
+    color: var(--negro-suave);
+}
+
+.tabla-inventario tr:hover {
+    background-color: #faf7f5; /* Sutil cambio de color al pasar el cursor */
+}
+
+/* Indicadores de stock */
+.estado-indicador {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.estado-indicador.verde {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.estado-indicador.naranja {
+    background-color: #fff3e0;
+    color: #ef6c00;
+}
+
+.cant-stock.en-alerta {
+    color: #d84315;
+    font-weight: 700;
+}
+
+/* Botones dentro de la tabla */
+.btn-tabla-bodega {
+    background-color: var(--cafe-ebenezer);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: background 0.2s;
+}
+
+.btn-tabla-bodega:hover {
+    background-color: var(--cafe-oscuro);
+}
+
+.btn-tabla-bodega.urgente {
+    background-color: #c62828;
+}
+
+.btn-tabla-bodega.urgente:hover {
+    background-color: #b71c1c;
+}
+/* =========================================
+   10. TABLERO DE PRODUCCIÓN (FÁBRICA)
+   ========================================= */
+.seccion-fabrica-produccion {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.tablero-kanban {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    align-items: start;
+}
+
+.columna-kanban {
+    background-color: #fcfaf8;
+    border: 1px solid rgba(163, 91, 66, 0.12);
+    border-radius: 12px;
+    padding: 15px;
+    min-height: 450px;
+}
+
+.cabecera-columna {
+    padding: 10px 15px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 700;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.cabecera-columna.pendiente {
+    background-color: #f57c00; /* Naranja para tareas pendientes */
+}
+
+.cabecera-columna.proceso {
+    background-color: #1976d2; /* Azul para en proceso */
+}
+
+.cabecera-columna.terminado {
+    background-color: #388e3c; /* Verde para terminado */
+}
+
+/* Tarjetas individuales de órdenes */
+.tarjeta-orden {
+    background-color: white;
+    border-radius: 8px;
+    border: 1px solid rgba(163, 91, 66, 0.15);
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.tarjeta-orden:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+}
+
+.orden-meta {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--cafe-ebenezer);
+    margin-bottom: 5px;
+    letter-spacing: 0.5px;
+}
+
+.tarjeta-orden h4 {
+    color: var(--cafe-oscuro);
+    margin-bottom: 8px;
+    font-size: 1rem;
+}
+
+.tarjeta-orden p {
+    font-size: 0.85rem;
+    color: var(--negro-suave);
+    margin-bottom: 5px;
+}
+
+/* Botón de avance */
+.btn-avanzar {
+    width: 100%;
+    background-color: var(--cafe-ebenezer);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px;
+    font-weight: 700;
+    font-size: 0.8rem;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.2s;
+}
+
+.btn-avanzar:hover {
+    background-color: var(--cafe-oscuro);
+}
+
+.estado-envio {
+    color: #2e7d32 !important;
+    font-weight: 700;
+    font-style: italic;
+}

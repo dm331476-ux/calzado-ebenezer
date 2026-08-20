@@ -1,0 +1,40 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "MenuPrincipal",
+            "request": "launch",
+            "mainClass": "demodos.menu.MenuPrincipal",
+            "projectName": "demodos"
+        },
+        {
+            "type": "java",
+            "name": "MainPrueba",
+            "request": "launch",
+            "mainClass": "demodos.modelo.MainPrueba",
+            "projectName": "demodos"
+        },
+        {
+            "type": "java",
+            "name": "MainPrueba",
+            "request": "launch",
+            "mainClass": "demodos.MainPrueba",
+            "projectName": "demodos"
+        },
+        {
+            "type": "java",
+            "name": "Conexion",
+            "request": "launch",
+            "mainClass": "demodos.conexion.Conexion",
+            "projectName": "demodos"
+        },
+        {
+            "type": "java",
+            "name": "Ejecutar Conexion",
+            "request": "launch",
+            "mainClass": "demodos.Conexion",
+            "projectName": "demodos"
+        }
+    ]
+}
