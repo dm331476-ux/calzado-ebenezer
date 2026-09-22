@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class Conexion {
     public static void main(String[] args) {
     
-    String url = "jdbc:mysql://localhost:3307/ebenezer?useSSL=false&serverTimezone=UTC";
+    String url = "jdbc:mysql://localhost:3306/ebenezer?useSSL=false&serverTimezone=UTC";
     String usuario = "root";
     String password = ""; 
 
