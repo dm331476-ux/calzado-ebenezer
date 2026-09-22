@@ -15,7 +15,7 @@ public class ProductoDao {
     public boolean registrarProducto(Producto producto) {
         String sql = "INSERT INTO productos (nombre, talla, precio, stock) VALUES (?, ?, ?, ?)";
         
-        try (Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost:3307/ebenezer?useSSL=false&serverTimezone=UTC", "root", "");
+        try (Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/ebenezer?useSSL=false&serverTimezone=UTC", "root", "");
              PreparedStatement pstmt = conexion.prepareStatement(sql)) {
             
             pstmt.setString(1, producto.getNombre());
@@ -37,7 +37,7 @@ public class ProductoDao {
     List<Producto> lista = new ArrayList<>();
     String sql = "SELECT * FROM productos";
     
-    try (Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost:3307/ebenezer?useSSL=false&serverTimezone=UTC", "root", "");
+    try (Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/ebenezer?useSSL=false&serverTimezone=UTC", "root", "");
          PreparedStatement pstmt = conexion.prepareStatement(sql);
          ResultSet rs = pstmt.executeQuery()) {
         
@@ -59,7 +59,7 @@ public class ProductoDao {
     public boolean actualizarProducto(Producto producto) {
         String sql = "UPDATE productos SET nombre = ?, talla = ?, precio = ?, stock = ? WHERE id = ?";
         
-        try (Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost:3307/ebenezer?useSSL=false&serverTimezone=UTC", "root", "");
+        try (Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/ebenezer?useSSL=false&serverTimezone=UTC", "root", "");
              PreparedStatement pstmt = conexion.prepareStatement(sql)) {
             
             pstmt.setString(1, producto.getNombre());
@@ -81,7 +81,7 @@ public class ProductoDao {
     public boolean eliminarProducto(int id) {
         String sql = "DELETE FROM productos WHERE id = ?";
         
-        try (Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost:3307/ebenezer?useSSL=false&serverTimezone=UTC", "root", "");
+        try (Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/ebenezer?useSSL=false&serverTimezone=UTC", "root", "");
              PreparedStatement pstmt = conexion.prepareStatement(sql)) {
             
             pstmt.setInt(1, id);
