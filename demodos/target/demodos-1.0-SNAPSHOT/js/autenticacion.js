@@ -10,7 +10,7 @@ window.alternarContrasena = function(idInput, boton) {
 
     if (input.type === "password") {
         input.type = "text";
-        boton.textContent = "👁️";
+        boton.textContent = "🙈";
     } else {
         input.type = "password";
         boton.textContent = "👁️";
@@ -21,7 +21,7 @@ window.alternarContrasena = function(idInput, boton) {
 // 2. INICIO DE EVENTOS DE LA PÁGINA (Se ejecuta al cargar el HTML)
 // =================================================================
 document.addEventListener('DOMContentLoaded', () => {
-
+    
     // Componentes de error comunes
     const capaError = document.getElementById('capaError');
     const btnCerrarError = document.getElementById('btnCerrarError');
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     localStorage.setItem('passUsuarioEbenezer', contrasena);
 
                     alert(`¡Registro Exitoso!\nUsuario: ${nombre}\nRol: ${rol.toUpperCase()}`);
-                    window.location.href = "index.jps";
+                    window.location.href = "index.html";
                 } else {
                     if (capaError) {
                         capaError.style.display = 'flex';

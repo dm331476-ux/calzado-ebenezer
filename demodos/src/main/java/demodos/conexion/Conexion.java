@@ -5,6 +5,19 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Conexion {
+    public static Connection getConnection() {
+    Connection conexion = null;
+    try {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        String url = "jdbc:mysql://localhost:3306/ebenezer?useSSL=false&serverTimezone=UTC";
+        String usuario = "root";
+        String password = "";
+        conexion = DriverManager.getConnection(url, usuario, password);
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return conexion;
+}
     public static void main(String[] args) {
     
     String url = "jdbc:mysql://localhost:3306/ebenezer?useSSL=false&serverTimezone=UTC";
