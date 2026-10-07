@@ -14,7 +14,7 @@
         
         <aside class="sidebar-ebenezer">
             <div class="sidebar-header">
-                <img src="img/logo.png" alt="Logo Calzado Ebenezer" style="width: 100px; height: auto; object-fit: contain;">
+                <img class="logo-sidebar" src="img/logo.png" alt="Logo Calzado Ebenezer">
                 <h2>EBENEZER</h2>
                 <span class="user-badge" id="badgeRol">Vendedor</span>
             </div>
@@ -23,7 +23,7 @@
                 <a href="#" id="menuBodega" class="menu-item">📦 Control de bodega</a>
                 <a href="#" id="menuFabrica" class="menu-item">🏭 Producción de Fábrica</a>
                 <a href="#" id="menuAdmin" class="menu-item">⚙️ Area Administrativa</a>
-                <a href="index.html" class="menu-item salir">🚪 Cerrar Sesión</a>
+                <a href="index.jsp" class="menu-item salir">🚪 Cerrar Sesión</a>
             </nav>
         </aside>
 
@@ -73,6 +73,41 @@
                     <button class="btn-facturar" id="btnFacturar" onclick="procesarFactura()">Generar Factura</button>
                 </div>
             </aside>
+
+            <section class="seccion-admin" style="display: none;">
+                <header class="content-header">
+                    <h1>Área Administrativa</h1>
+                    <p>Resumen general de ventas, gastos y movimientos del sistema</p>
+                </header>
+
+                <div class="resumen-admin-grid">
+                    <article class="tarjeta-admin">
+                        <span class="titulo-admin">Ingresos</span>
+                        <strong>$48.500</strong>
+                        <small>Ventas del mes</small>
+                    </article>
+                    <article class="tarjeta-admin">
+                        <span class="titulo-admin">Gastos</span>
+                        <strong>$18.200</strong>
+                        <small>Producción y operación</small>
+                    </article>
+                    <article class="tarjeta-admin">
+                        <span class="titulo-admin">Movimientos</span>
+                        <strong>12</strong>
+                        <small>Entradas y salidas</small>
+                    </article>
+                </div>
+
+                <div class="panel-admin-detalle">
+                    <h3>Resumen general</h3>
+                    <ul>
+                        <li>Ventas activas: 4</li>
+                        <li>Órdenes en proceso: 2</li>
+                        <li>Productos con stock bajo: 3</li>
+                        <li>Último movimiento: envío a bodega</li>
+                    </ul>
+                </div>
+            </section>
 
             <section class="seccion-inventario-bodega" style="display: none;">
                 <header class="content-header">

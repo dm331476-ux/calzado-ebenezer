@@ -11,16 +11,10 @@
 <body>
     <main class="contenedor-login">
 
-        <header class="login-header" style="display: flex; justify-content: center; align-items: center; flex-direction: column; padding: 20px 0; gap: 10px;">
-    
-    <img src="img/logo.png" alt="Logo Calzado Ebenezer" style="width: 100px; height: auto; object-fit: contain;">
-    
-    <h1 style="font-family: 'Playfair Display', serif; color: #5d4037;">
-    INICIAR SESIÓN</h1>
-
-    <p style="margin: 0; font-size: 0.9rem; color: #757575; text-align: center;">
-            Sistema de Gestión de Ventas e Inventario
-        </p>
+        <header class="login-header">
+            <img class="logo-login" src="img/logo.png" alt="Logo Calzado Ebenezer">
+            <h1>INICIAR SESIÓN</h1>
+            <p>Sistema de Gestión de Ventas e Inventario</p>
         </header>
 <form id="loginForm" class="form-login" action="LoginServlet" method="POST">
     <div class="grupo-input">

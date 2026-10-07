@@ -12,7 +12,7 @@
     <main class="contenedor-login">
 
         <header class="login-header">
-            <img src="img/logo.png" alt="Logo Calzado Ebenezer" style="width: 100px; height: auto; object-fit: contain;">
+            <img class="logo-login" src="img/logo.png" alt="Logo Calzado Ebenezer">
             <h1>REGISTRO</h1>
             <p>Personal Administrativo y Operativo</p>
         </header>
@@ -20,18 +20,24 @@
         <form id="registroForm" action="RegistroServlet" method="POST" class="form-login">
             <div class="grupo-input">
                 <label for="nombreCompleto">Nombre Completo</label>
-                <input type="text" name="nombre" placeholder="Nombre completo" required>
+                <input id="nombreCompleto" type="text" name="nombre" placeholder="Nombre completo" required>
+            </div>
+
+            <div class="grupo-input">
+                <label for="usuarioRegistro">Usuario</label>
+                <input id="usuarioRegistro" type="text" name="usuario" placeholder="Nombre de usuario" required>
             </div>
 
             <div class="grupo-input">
                 <label for="correoRegistro">Correo Electrónico</label>
-                <input type="email" name="email" placeholder="Correo electrónico" required>
+                <input id="correoRegistro" type="email" name="email" placeholder="Correo electrónico" required>
             </div>
 
             <div class="grupo-input">
                 <label for="rolUsuario">Rol en el Sistema</label>
-                <select id="rolUsuario" class="selector-rol-ebenezer" required>
+                <select id="rolUsuario" name="rol" class="selector-rol-ebenezer" required>
                    <option value="" disabled selected>Seleccione su rol operativo</option>
+                   <option value="Administrador">Administrador</option>
                    <option value="vendedor">Vendedor</option>
                    <option value="bodega">Encargado de Bodega</option>
                    <option value="fabrica">Operario de Fábrica</option>
@@ -41,7 +47,7 @@
             <div class="grupo-input">
     <label for="passRegistro">Contraseña</label>
     <div class="contenedor-password-ojo">
-        <input type="password" name="password" placeholder="Contraseña" required>
+        <input id="passRegistro" type="password" name="password" placeholder="Contraseña" required>
         <button type="button" class="btn-ojo" onclick="alternarContrasena('passRegistro', this)">👁️</button>
     </div>
 

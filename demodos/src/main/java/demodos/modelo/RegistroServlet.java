@@ -22,6 +22,13 @@ public class RegistroServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
+        if (nombre == null || usuario == null || email == null || password == null ||
+                nombre.trim().isEmpty() || usuario.trim().isEmpty() ||
+                email.trim().isEmpty() || password.trim().isEmpty()) {
+            response.sendRedirect("registro.jsp?error=campos");
+            return;
+        }
+
        // 2. Imprimimos en consola para verificar que los datos están llegando correctamente
         System.out.println("Registrando usuario: " + usuario);
         System.out.println("Email: " + email);

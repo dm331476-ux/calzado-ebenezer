@@ -1,4 +1,3 @@
-demodos\modelo\LoginServlet.class
 demodos\conexion\Conexion.class
 demodos\modelo\RegistroServlet.class
 demodos\dao\ProductoDao.class
