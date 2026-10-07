@@ -46,11 +46,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (usuarioIngresado === "admin" && contrasenaIngresada === "ebenezer2026") {
                     localStorage.setItem('rolUsuarioEbenezer', 'Administrador');
                     alert("¡Bienvenido Administrador a Calzado Ebenezer!");
-                    window.location.href = "dashboard.html";
+                    window.location.href = "dashboard.jsp";
                 } 
                 else if (usuarioRegistrado && usuarioIngresado === usuarioRegistrado && contrasenaIngresada === contrasenaRegistrada) {
                     alert(`¡Bienvenido al sistema, ${usuarioIngresado}!`);
-                    window.location.href = "dashboard.html";
+                    window.location.href = "dashboard.jsp";
                 } 
                 else {
                     if (capaError) capaError.style.display = 'flex';
@@ -65,34 +65,36 @@ document.addEventListener('DOMContentLoaded', () => {
     const registroForm = document.getElementById('registroForm');
     if (registroForm) {
         registroForm.addEventListener('submit', (e) => {
-            e.preventDefault();
             const nombreEl = document.getElementById('nombreCompleto');
+            const usuarioEl = document.getElementById('usuarioRegistro');
             const correoEl = document.getElementById('correoRegistro');
             const rolEl = document.getElementById('rolUsuario');
             const passEl = document.getElementById('passRegistro');
 
-            if (nombreEl && correoEl && rolEl && passEl) {
-                const nombre = nombreEl.value.trim();
-                const correo = correoEl.value.trim();
-                const rol = rolEl.value;
-                const contrasena = passEl.value;
-
-                if (contrasena.length >= 6 && rol !== "") {
-                    localStorage.setItem('nombreUsuarioEbenezer', nombre);
-                    localStorage.setItem('correoUsuarioEbenezer', correo);
-                    localStorage.setItem('rolUsuarioEbenezer', rol);
-                    localStorage.setItem('passUsuarioEbenezer', contrasena);
-
-                    alert(`¡Registro Exitoso!\nUsuario: ${nombre}\nRol: ${rol.toUpperCase()}`);
-                    window.location.href = "index.jps";
-                } else {
-                    if (capaError) {
-                        capaError.style.display = 'flex';
-                    } else {
-                        alert("La contraseña debe tener mínimo 6 caracteres y debes seleccionar un rol.");
-                    }
-                }
+            if (!nombreEl || !usuarioEl || !correoEl || !rolEl || !passEl) {
+                return;
             }
+
+            const nombre = nombreEl.value.trim();
+            const usuario = usuarioEl.value.trim();
+            const correo = correoEl.value.trim();
+            const rol = rolEl.value;
+            const contrasena = passEl.value;
+
+            if (nombre === '' || usuario === '' || correo === '' || rol === '' || contrasena.length < 6) {
+                e.preventDefault();
+                if (capaError) {
+                    capaError.style.display = 'flex';
+                } else {
+                    alert("Completa todos los campos y usa una contraseña de al menos 6 caracteres.");
+                }
+                return;
+            }
+
+            localStorage.setItem('nombreUsuarioEbenezer', usuario);
+            localStorage.setItem('correoUsuarioEbenezer', correo);
+            localStorage.setItem('rolUsuarioEbenezer', rol);
+            localStorage.setItem('passUsuarioEbenezer', contrasena);
         });
     }
 
