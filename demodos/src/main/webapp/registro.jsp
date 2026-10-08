@@ -11,12 +11,14 @@
 <body>
     <main class="contenedor-login">
 
+        <%-- Presenta el nombre del sistema y explica a quién está dirigido el registro. --%>
         <header class="login-header">
             <img class="logo-login" src="img/logo.png" alt="Logo Calzado Ebenezer">
             <h1>REGISTRO</h1>
             <p>Personal Administrativo y Operativo</p>
         </header>
 
+        <%-- Reúne los datos necesarios para crear una cuenta y elegir su rol en el sistema. --%>
         <form id="registroForm" action="RegistroServlet" method="POST" class="form-login">
             <div class="grupo-input">
                 <label for="nombreCompleto">Nombre Completo</label>
@@ -48,17 +50,21 @@
     <label for="passRegistro">Contraseña</label>
     <div class="contenedor-password-ojo">
         <input id="passRegistro" type="password" name="password" placeholder="Contraseña" required>
+        <%-- Permite mostrar u ocultar la contraseña mientras se escribe. --%>
         <button type="button" class="btn-ojo" onclick="alternarContrasena('passRegistro', this)">👁️</button>
     </div>
 
+            <%-- Envía los datos del formulario para intentar crear la cuenta. --%>
             <button type="submit" class="btn-ingresar">REGISTRAR ENTRADA</button>
         </form>
 
+        <%-- Ofrece volver a la pantalla de acceso si la persona ya tiene una cuenta. --%>
         <footer class="login-footer">
             <p>¿Ya tiene una cuenta activa? <a href="index.jsp">Inicie sesión aquí</a></p>
         </footer>
     </main>
 
+    <%-- Aviso que el script puede mostrar cuando algún dato del registro requiere atención. --%>
     <div class="pantalla-oscura" id="capaError">
         <div class="notificacion-ebenezer">
             <div class="cabecera-transparente">
@@ -83,6 +89,8 @@
             </div>
         </div>
     </div>
+
+    <%-- Activa la validación del registro, el aviso de error y el control de contraseña. --%>
     <script src="js/autenticacion.js"></script>
 </body>
 </html>

@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%-- Página de acceso: define el documento y carga los recursos visuales del inicio de sesión. --%>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -11,11 +12,14 @@
 <body>
     <main class="contenedor-login">
 
+        <%-- Presenta la identidad del sistema antes de solicitar las credenciales. --%>
         <header class="login-header">
             <img class="logo-login" src="img/logo.png" alt="Logo Calzado Ebenezer">
             <h1>INICIAR SESIÓN</h1>
             <p>Sistema de Gestión de Ventas e Inventario</p>
         </header>
+
+        <%-- Declara el destino del formulario; el script intercepta el envío para validar el acceso. --%>
 <form id="loginForm" class="form-login" action="LoginServlet" method="POST">
     <div class="grupo-input">
         <label for="userLogin">Usuario o Correo</label>
@@ -32,11 +36,14 @@
 
     <button type="submit" class="btn-ingresar">INGRESAR</button>
 </form>
+
+        <%-- Ofrece navegación al formulario para crear una cuenta administrativa. --%>
         <footer class="login-footer">
             <p>¿No tiene una cuenta administrativa? <a href="registro.jsp">Regístrese aquí</a></p>
         </footer>
     </main>
 
+    <%-- Capa inicialmente controlada por JavaScript para mostrar errores y permitir reintentar. --%>
     <div class="pantalla-oscura" id="capaError">
         <div class="notificacion-ebenezer">
             
@@ -63,6 +70,8 @@
             </div>
         </div>
     </div>
+
+    <%-- Activa el cambio de visibilidad de contraseña y los eventos de autenticación. --%>
     <script src="js/autenticacion.js"></script>
 </body>
 </html>

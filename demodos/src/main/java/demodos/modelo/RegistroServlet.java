@@ -9,19 +9,25 @@ import javax.servlet.http.HttpServletResponse;
 
 import demodos.dao.UsuarioDao;
 
-// Esta anotación es clave: vincula el form del JSP con este Servlet
+/**
+ * Recibe los datos del formulario de registro y los envía a guardar.
+ */
 @WebServlet(name = "RegistroServlet", urlPatterns = {"/RegistroServlet"})
 public class RegistroServlet extends HttpServlet {
 
+    /**
+     * Revisa que el formulario esté completo, registra la cuenta y muestra el resultado.
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
         
-        // 1. Capturamos los datos que vienen del formulario (debe coincidir con el 'name' en el JSP)
+        // Lee los datos enviados desde el formulario de registro.
         String nombre = request.getParameter("nombre");
         String usuario = request.getParameter("usuario");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
+        // Si falta algún dato, vuelve al formulario e indica que debe completarse.
         if (nombre == null || usuario == null || email == null || password == null ||
                 nombre.trim().isEmpty() || usuario.trim().isEmpty() ||
                 email.trim().isEmpty() || password.trim().isEmpty()) {
@@ -29,15 +35,15 @@ public class RegistroServlet extends HttpServlet {
             return;
         }
 
-       // 2. Imprimimos en consola para verificar que los datos están llegando correctamente
+        // Deja una referencia en la consola para saber qué cuenta se está procesando.
         System.out.println("Registrando usuario: " + usuario);
         System.out.println("Email: " + email);
 
-        // 3. Llamamos a nuestro UsuarioDao para guardar en la base de datos
+        // Pide a UsuarioDao que guarde la cuenta y devuelve el resultado.
         UsuarioDao dao = new UsuarioDao();
         boolean exito = dao.registrarUsuario(nombre, usuario, email, password);
 
-        // 4. Redirección según el resultado
+        // Lleva al inicio si el registro se guardó; si no, vuelve al formulario con un aviso.
         if (exito) {
             response.sendRedirect("index.jsp?mensaje=registrado");
         } else {

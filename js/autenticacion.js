@@ -1,6 +1,11 @@
 // =================================================================
 // 1. FUNCIÓN GLOBAL: ALTERNAR VISIBILIDAD DE CONTRASEÑA
 // =================================================================
+/**
+ * Permite ver u ocultar el contenido de un campo de contraseña.
+ * @param {string} idInput Identificador del campo que se quiere cambiar.
+ * @param {HTMLButtonElement} boton Botón que acompaña al campo.
+ */
 window.alternarContrasena = function(idInput, boton) {
     const input = document.getElementById(idInput);
     if (!input) {
@@ -20,15 +25,17 @@ window.alternarContrasena = function(idInput, boton) {
 // =================================================================
 // 2. INICIO DE EVENTOS DE LA PÁGINA (Se ejecuta al cargar el HTML)
 // =================================================================
+// Espera a que la página esté lista antes de conectar sus formularios y controles.
 document.addEventListener('DOMContentLoaded', () => {
 
-    // Componentes de error comunes
+    // Estos elementos aparecen en las páginas de acceso y registro.
     const capaError = document.getElementById('capaError');
     const btnCerrarError = document.getElementById('btnCerrarError');
 
     // -----------------------------------------
     // A. CONTROL DEL FORMULARIO DE LOGIN
     // -----------------------------------------
+    // Solo prepara el inicio de sesión cuando esta página contiene el formulario.
     const loginForm = document.getElementById('loginForm');
     if (loginForm) {
         loginForm.addEventListener('submit', (e) => {
@@ -43,6 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const usuarioRegistrado = localStorage.getItem('nombreUsuarioEbenezer');
                 const contrasenaRegistrada = localStorage.getItem('passUsuarioEbenezer');
 
+                // Acepta la cuenta administrativa definida aquí o los datos guardados al registrarse.
                 if (usuarioIngresado === "admin" && contrasenaIngresada === "ebenezer2026") {
                     localStorage.setItem('rolUsuarioEbenezer', 'Administrador');
                     alert("¡Bienvenido Administrador a Calzado Ebenezer!");
@@ -62,6 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // -----------------------------------------
     // B. CONTROL DEL FORMULARIO DE REGISTRO
     // -----------------------------------------
+    // Revisa los datos antes de dejar que el formulario se envíe.
     const registroForm = document.getElementById('registroForm');
     if (registroForm) {
         registroForm.addEventListener('submit', (e) => {
@@ -81,6 +90,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const rol = rolEl.value;
             const contrasena = passEl.value;
 
+            // Si falta un dato o la contraseña tiene menos de seis caracteres,
+            // se detiene el envío y se avisa a la persona.
             if (nombre === '' || usuario === '' || correo === '' || rol === '' || contrasena.length < 6) {
                 e.preventDefault();
                 if (capaError) {
@@ -91,6 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
+            // Conserva los datos de la cuenta en el navegador para usarlos al iniciar sesión.
             localStorage.setItem('nombreUsuarioEbenezer', usuario);
             localStorage.setItem('correoUsuarioEbenezer', correo);
             localStorage.setItem('rolUsuarioEbenezer', rol);
@@ -101,6 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // -----------------------------------------
     // C. EVENTO DE REINTENTAR (Cerrar Alerta)
     // -----------------------------------------
+    // Cierra el aviso y limpia las contraseñas para que se puedan volver a escribir.
     if (btnCerrarError) {
         btnCerrarError.addEventListener('click', () => {
             if (capaError) capaError.style.display = 'none';
@@ -114,11 +127,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // -----------------------------------------
     // D. DETECTAR Y APLICAR ROL EN EL DASHBOARD (Solo si existe badgeRol)
     // -----------------------------------------
+    // La presencia de esta etiqueta indica que se está mostrando el panel principal.
     const badgeRol = document.getElementById('badgeRol');
     if (badgeRol) {
         const rolGuardado = localStorage.getItem('rolUsuarioEbenezer') || 'vendedor';
 
-        // 1. Personalizar el Badge Visual de Roles
+        // Muestra el nombre del rol con un color que ayuda a distinguirlo.
         if (rolGuardado === 'bodega') {
             badgeRol.textContent = 'Encargado Bodega';
             badgeRol.style.backgroundColor = '#795548';
@@ -133,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
             badgeRol.style.backgroundColor = 'var(--cafe-ebenezer)';
         }
 
-        // 2. Control Visual de Vistas del Dashboard
+        // Guarda referencias a las secciones para mostrar solo las que corresponden al rol.
         const panelCarrito = document.querySelector('.panel-carrito');
         const seccionCatalogo = document.querySelector('.seccion-catalogo');
         const seccionInventario = document.querySelector('.seccion-inventario-bodega');
@@ -141,6 +155,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const mainContent = document.querySelector('.main-content');
 
         if (mainContent) {
+            // Bodega ve el inventario; fábrica ve sus órdenes; ventas y administración
+            // ven el catálogo y el carrito. Los demás casos muestran solo el catálogo.
             if (rolGuardado === 'bodega') {
                 if (seccionCatalogo) seccionCatalogo.style.display = 'none';
                 if (panelCarrito) panelCarrito.style.display = 'none';
@@ -171,13 +187,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // 3. Control de Opciones del Menú Lateral (Sidebar)
+        // Busca las opciones del menú que se mostrarán según el rol guardado.
         const menuVentas = document.getElementById('menuVentas');
         const menuBodega = document.getElementById('menuBodega');
         const menuFabrica = document.getElementById('menuFabrica');
         const menuAdmin = document.getElementById('menuAdmin');
 
-        // Ocultamos el menú de administración por defecto para los demás roles
+        // La opción administrativa solo se habilita para quien tiene ese rol.
         if (menuAdmin) menuAdmin.style.display = 'none';
 
         if (rolGuardado === 'Administrador') {

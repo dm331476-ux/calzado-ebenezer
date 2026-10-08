@@ -1,6 +1,11 @@
 // =================================================================
 // 1. FUNCIÓN GLOBAL: ALTERNAR VISIBILIDAD DE CONTRASEÑA
 // =================================================================
+/**
+ * Muestra u oculta el texto de un campo de contraseña y actualiza el icono del botón.
+ * @param {string} idInput Identificador del campo cuya visibilidad se cambia.
+ * @param {HTMLButtonElement} boton Botón que activa el cambio y muestra el icono.
+ */
 window.alternarContrasena = function(idInput, boton) {
     const input = document.getElementById(idInput);
     if (!input) {
@@ -18,8 +23,10 @@ window.alternarContrasena = function(idInput, boton) {
 };
 
 // =================================================================
-// 2. INICIO DE EVENTOS DE LA PÁGINA (Se ejecuta al cargar el HTML)
+// 2. INICIO DE EVENTOS DE LA PÁGINA
 // =================================================================
+// Los controles se conectan después de cargar el DOM; las comprobaciones permiten
+// compartir este script entre páginas que no contienen todos los formularios.
 document.addEventListener('DOMContentLoaded', () => {
     
     // Componentes de error comunes
@@ -32,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('loginForm');
     if (loginForm) {
         loginForm.addEventListener('submit', (e) => {
+            // La validación de esta página se hace aquí en lugar de enviar el formulario.
             e.preventDefault();
             const userEl = document.getElementById('userLogin');
             const passEl = document.getElementById('passLogin');
@@ -43,6 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const usuarioRegistrado = localStorage.getItem('nombreUsuarioEbenezer');
                 const contrasenaRegistrada = localStorage.getItem('passUsuarioEbenezer');
 
+                // Se aceptan las credenciales administrativas predefinidas o las guardadas
+                // por el formulario de registro; si coinciden, se conserva el rol y se abre el dashboard.
                 if (usuarioIngresado === "admin" && contrasenaIngresada === "ebenezer2026") {
                     localStorage.setItem('rolUsuarioEbenezer', 'Administrador');
                     alert("¡Bienvenido Administrador a Calzado Ebenezer!");
@@ -94,6 +104,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const rol = rolEl.value;
             const contrasena = passEl.value;
 
+            // Se exigen todos los datos y una contraseña de seis caracteres como mínimo
+            // antes de guardar el perfil en el almacenamiento local del navegador.
             if (nombre === '' || usuario === '' || correo === '' || rol === '' || contrasena.length < 6) {
                 if (capaError) {
                     capaError.style.display = 'flex';
@@ -176,6 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const seccionAdmin = document.querySelector('.seccion-admin');
         const mainContent = document.querySelector('.main-content');
 
+        // Muestra el contenido asociado al rol o sección seleccionada y ajusta la cuadrícula.
         const mostrarSeccion = (tipo) => {
             if (!mainContent) return;
 
@@ -209,6 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const menuFabrica = document.getElementById('menuFabrica');
         const menuAdmin = document.getElementById('menuAdmin');
 
+        // Mantiene un solo elemento del menú marcado como activo.
         const activarMenu = (menuActivo) => {
             const items = document.querySelectorAll('.menu-item');
             items.forEach(item => {

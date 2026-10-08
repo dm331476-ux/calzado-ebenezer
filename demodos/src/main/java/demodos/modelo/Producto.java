@@ -1,17 +1,25 @@
 package demodos.modelo;
 
+/**
+ * Guarda los datos principales de un producto para usarlos en el sistema.
+ */
 public class Producto {
+    // Datos que identifican el producto y describen su precio y disponibilidad.
     private int id;
     private String nombre;
     private int talla;
     private double precio;
     private int stock;
 
-    // Constructor vacío
+    /**
+     * Crea un producto sin datos para completarlos más adelante.
+     */
     public Producto() {
     }
 
-    // Constructor con parámetros (para registrar)
+    /**
+     * Crea un producto nuevo con su nombre, talla, precio y cantidad disponible.
+     */
     public Producto(String nombre, int talla, double precio, int stock) {
         this.nombre = nombre;
         this.talla = talla;
@@ -19,7 +27,7 @@ public class Producto {
         this.stock = stock;
     }
 
-    // Getters y Setters
+    // Estos métodos permiten consultar o cambiar cada dato del producto.
     public int getId() {
         return id;
     }

@@ -10,8 +10,10 @@
 </head>
 <body>
 
+    <%-- Reúne el menú lateral y las vistas principales del sistema. --%>
     <div class="dashboard-container">
         
+        <%-- Muestra la identidad del sistema, el rol actual y las opciones de navegación. --%>
         <aside class="sidebar-ebenezer">
             <div class="sidebar-header">
                 <img class="logo-sidebar" src="img/logo.png" alt="Logo Calzado Ebenezer">
@@ -27,8 +29,10 @@
             </nav>
         </aside>
 
+        <%-- Aquí se muestran las distintas áreas, que JavaScript cambia según la opción elegida. --%>
         <main class="main-content">
             
+            <%-- Catálogo de ejemplo con productos que se pueden agregar a la venta actual. --%>
             <section class="seccion-catalogo">
                 <header class="content-header">
                     <h1>Catálogo de Ventas</h1>
@@ -58,6 +62,7 @@
                 </div>
             </section>
 
+            <%-- Muestra los productos elegidos, el total y el botón para generar la factura. --%>
             <aside class="panel-carrito">
                 <div class="cabecera-carrito">
                     <h2>🛒 Carrito de Venta</h2>
@@ -74,6 +79,7 @@
                 </div>
             </aside>
 
+            <%-- Presenta un resumen general para la persona encargada de administrar el sistema. --%>
             <section class="seccion-admin" style="display: none;">
                 <header class="content-header">
                     <h1>Área Administrativa</h1>
@@ -109,6 +115,7 @@
                 </div>
             </section>
 
+            <%-- Permite revisar las existencias y solicitar más unidades cuando haga falta. --%>
             <section class="seccion-inventario-bodega" style="display: none;">
                 <header class="content-header">
                     <h1>Control de Inventario y Existencias</h1>
@@ -157,6 +164,7 @@
                 </div>
             </section>
 
+            <%-- Organiza las órdenes de fábrica según estén pendientes, en proceso o terminadas. --%>
             <section class="seccion-fabrica-produccion" style="display: none;">
                 <header class="content-header">
                     <h1>Tablero de Producción y Manufactura</h1>
@@ -215,6 +223,7 @@
         </main>
     </div>
 
+    <%-- Controla el cambio de vistas y las acciones disponibles en el panel. --%>
     <script src="js/autenticacion.js"></script>
 </body>
 </html>

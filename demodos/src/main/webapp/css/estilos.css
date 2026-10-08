@@ -1,5 +1,5 @@
 /* =========================================
-   1. Mis variables y imagen de fondo.
+   Colores que se repiten y ajustes generales de la página.
    ========================================= */
 :root {
     --cafe-ebenezer: #a35b42;
@@ -29,7 +29,7 @@ body {
 }
 
 /* =========================================
-   2. Diseño de la caja del login de Ebenezer
+   Tarjeta y contenido de la pantalla de acceso.
    ========================================= */
 .contenedor-login {
     width: 100%;
@@ -76,7 +76,7 @@ body {
     text-align: center;
 }
 
-/* Formulario */
+/* Ordena los campos del formulario y mantiene sus textos alineados. */
 .form-login {
     display: flex;
     flex-direction: column;
@@ -114,7 +114,7 @@ body {
     background: #fff;
     box-shadow: 0 0 8px rgba(163, 91, 66, 0.2);
 }
-/* Contenedor relativo para posicionar el ojo encima del input */
+/* Coloca el botón del ojo dentro del campo de contraseña. */
 .contenedor-password-ojo {
     position: relative;
     width: 100%;
@@ -122,13 +122,13 @@ body {
     align-items: center;
 }
 
-/* Forzamos al input a tener un espacio libre a la derecha para que no choque con el ojo */
+/* Reserva espacio para que el texto no quede debajo del botón del ojo. */
 .contenedor-password-ojo input {
     width: 100%;
     padding-right: 45px; /* Espacio para el botón */
 }
 
-/* Botón transparente del ojito */
+/* Da forma al botón que muestra u oculta la contraseña. */
 .btn-ojo {
     position: absolute;
     right: 12px;
@@ -188,7 +188,7 @@ body {
 }
 
 /* =========================================
-   3. Alerta de error general
+ Aviso que se muestra cuando hace falta corregir algún dato.
    ========================================= */
 .pantalla-oscura {
     display: none;
@@ -227,6 +227,7 @@ body {
     }
 }
 
+/* Organiza el título, mensaje y botón dentro del aviso. */
 .cabecera-transparente {
     padding: 20px 20px 15px 20px;
     display: flex;
@@ -322,7 +323,7 @@ body {
 .btn-reintentar-transp:hover {
     background: var(--cafe-oscuro);
 }
-/* Estilo para el menú desplegable de los roles */
+/* Permite elegir un rol en el formulario de registro. */
 .selector-rol-ebenezer {
     width: 100%;
     padding: 12px 15px;
@@ -350,7 +351,7 @@ body {
     box-shadow: 0 0 8px rgba(163, 91, 66, 0.2);
 }
 /* =========================================
-   4. ESTRUCTURA PRINCIPAL DEL DASHBOARD
+   Área que ocupa el panel principal después del acceso.
    ========================================= */
 .dashboard-container {
     display: flex;
@@ -361,7 +362,7 @@ body {
 }
 
 /* =========================================
-   5. BARRA LATERAL (Sidebar)
+   Menú lateral, identificación del usuario y sus opciones.
    ========================================= */
 .sidebar-ebenezer {
     width: 280px;
@@ -398,7 +399,7 @@ body {
     color: #fff;
 }
 
-/* Etiqueta de Rol */
+/* Muestra el rol de la persona que inició sesión. */
 .user-badge {
     display: inline-block;
     background-color: var(--cafe-ebenezer);
@@ -458,7 +459,7 @@ body {
 }
 
 /* =========================================
-   6. CONTENIDO PRINCIPAL (Catálogo)
+   Catálogo de productos y tarjetas de calzado.
    ========================================= */
 .main-content {
     flex: 1;
@@ -481,14 +482,14 @@ body {
     margin-top: 5px;
 }
 
-/* Grid de Productos */
+/* Acomoda las tarjetas en filas que se ajustan al espacio disponible. */
 .grid-productos {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 25px;
 }
 
-/* Tarjeta de Zapato Individual */
+/* Presenta la imagen y los datos de un producto en una tarjeta. */
 .tarjeta-zapato {
     background-color: white;
     border-radius: 16px;
@@ -548,7 +549,7 @@ body {
     color: var(--rojo-alerta); /* Rojo si no hay existencias */
 }
 
-/* Botones de Tarjetas */
+/* Acciones para agregar un producto o solicitarlo a fábrica. */
 .btn-agregar-carrito {
     width: 100%;
     padding: 10px;
@@ -576,7 +577,7 @@ body {
     background-color: #5d4037;
 }
 /* =========================================
-   7. DISTRIBUCIÓN DEL CONTENIDO CON CARRITO
+   Distribución del catálogo junto al carrito de ventas.
    ========================================= */
 .main-content {
     display: grid;
@@ -593,7 +594,7 @@ body {
 }
 
 /* =========================================
-   8. PANEL DEL CARRITO DE VENTAS
+   Productos seleccionados, total y acción para facturar.
    ========================================= */
 .panel-carrito {
     background-color: white;
@@ -669,7 +670,7 @@ body {
     transform: scale(1.2);
 }
 
-/* Resumen del fondo */
+/* Resume el total de la compra y ofrece el botón para facturar. */
 .resumen-carrito {
     padding: 20px;
     background-color: #fcfaf8;
@@ -702,7 +703,7 @@ body {
     background-color: #1b5e20;
 }
 /* =========================================
-   9. VISTA DE INVENTARIO (BODEGA)
+   Vistas de administración e inventario de bodega.
    ========================================= */
 .seccion-admin,
 .seccion-inventario-bodega,
@@ -854,7 +855,7 @@ body {
     background-color: #b71c1c;
 }
 /* =========================================
-   10. TABLERO DE PRODUCCIÓN (FÁBRICA)
+   Tablero que organiza las órdenes de fábrica por avance.
    ========================================= */
 .seccion-fabrica-produccion {
     width: 100%;
