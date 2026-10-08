@@ -1,0 +1,2 @@
+# Ignora únicamente este archivo compilado que quedó junto al código fuente.
+/demodos/src/main/java/demodos/Conexion.class
