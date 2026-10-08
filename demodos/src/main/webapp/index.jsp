@@ -39,7 +39,7 @@
 
         <%-- Ofrece navegación al formulario para crear una cuenta administrativa. --%>
         <footer class="login-footer">
-            <p>¿No tiene una cuenta administrativa? <a href="registro.jsp">Regístrese aquí</a></p>
+            <p>¿No tiene una cuenta? <a href="registro.jsp">Regístrese aquí</a></p>
         </footer>
     </main>
 
@@ -54,13 +54,13 @@
                 <h2>ERROR DE ACCESO</h2>
             </div>
 
-            <img src="img/linea-sombra.PNG" alt="divisor" class="linea-divisor-PNG">
+            <img src="${pageContext.request.contextPath}/img/linea-sombra.png" alt="" class="linea-divisor-PNG">
 
             <div class="cuerpo-notificacion">
                 <p class="mensaje-italico">"Datos incorrectos"</p>
                 
                 <div class="contenedor-codigo">
-                    <span class="etiqueta-codigo">CODE:</span>
+                    <span class="etiqueta-codigo">CÓDIGO:</span>
                     <span class="numero-codigo">#001</span>
                 </div>
 

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calzado Ebenezer - Registro Administrativo</title>
+    <title>Calzado Ebenezer - Registro de Cuenta</title>
     <link rel="stylesheet" href="css/estilos.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 </head>
@@ -15,10 +15,10 @@
         <header class="login-header">
             <img class="logo-login" src="img/logo.png" alt="Logo Calzado Ebenezer">
             <h1>REGISTRO</h1>
-            <p>Personal Administrativo y Operativo</p>
+            <p>Registro de cuenta para el área de ventas</p>
         </header>
 
-        <%-- Reúne los datos necesarios para crear una cuenta y elegir su rol en el sistema. --%>
+        <%-- Reúne los datos necesarios para crear una cuenta de vendedor. --%>
         <form id="registroForm" action="RegistroServlet" method="POST" class="form-login">
             <div class="grupo-input">
                 <label for="nombreCompleto">Nombre Completo</label>
@@ -36,23 +36,18 @@
             </div>
 
             <div class="grupo-input">
-                <label for="rolUsuario">Rol en el Sistema</label>
-                <select id="rolUsuario" name="rol" class="selector-rol-ebenezer" required>
-                   <option value="" disabled selected>Seleccione su rol operativo</option>
-                   <option value="Administrador">Administrador</option>
-                   <option value="vendedor">Vendedor</option>
-                   <option value="bodega">Encargado de Bodega</option>
-                   <option value="fabrica">Operario de Fábrica</option>
-              </select>
+                <label>Rol en el sistema</label>
+                <input type="text" value="Vendedor" disabled>
             </div>
 
             <div class="grupo-input">
-    <label for="passRegistro">Contraseña</label>
-    <div class="contenedor-password-ojo">
-        <input id="passRegistro" type="password" name="password" placeholder="Contraseña" required>
-        <%-- Permite mostrar u ocultar la contraseña mientras se escribe. --%>
-        <button type="button" class="btn-ojo" onclick="alternarContrasena('passRegistro', this)">👁️</button>
-    </div>
+                <label for="passRegistro">Contraseña</label>
+                <div class="contenedor-password-ojo">
+                    <input id="passRegistro" type="password" name="password" placeholder="Contraseña" required>
+                    <%-- Permite mostrar u ocultar la contraseña mientras se escribe. --%>
+                    <button type="button" class="btn-ojo" onclick="alternarContrasena('passRegistro', this)">👁️</button>
+                </div>
+            </div>
 
             <%-- Envía los datos del formulario para intentar crear la cuenta. --%>
             <button type="submit" class="btn-ingresar">REGISTRAR ENTRADA</button>
@@ -74,13 +69,13 @@
                 <h2>ERROR DE REGISTRO</h2>
             </div>
 
-            <img src="img/linea-sombra.PNG" alt="divisor" class="linea-divisor-PNG">
+            <img src="${pageContext.request.contextPath}/img/linea-sombra.png" alt="" class="linea-divisor-PNG">
 
             <div class="cuerpo-notificacion">
                 <p class="mensaje-italico">"Operación fallida"</p>
                 
                 <div class="contenedor-codigo">
-                    <span class="etiqueta-codigo">CODE:</span>
+                    <span class="etiqueta-codigo">CÓDIGO:</span>
                     <span class="numero-codigo">#002</span>
                 </div>
 

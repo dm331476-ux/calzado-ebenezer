@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="demodos.AppTest" time="0.16" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="demodos.AppTest" time="0.128" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="25"/>
     <property name="sun.cpu.isalist" value="amd64"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
-    <property name="java.class.path" value="C:\calzado_ebenezer\demodos\target\test-classes;C:\calzado_ebenezer\demodos\target\classes;C:\Users\Marcel\.m2\repository\com\mysql\mysql-connector-j\9.1.0\mysql-connector-j-9.1.0.jar;C:\Users\Marcel\.m2\repository\com\google\protobuf\protobuf-java\4.26.1\protobuf-java-4.26.1.jar;C:\Users\Marcel\.m2\repository\javax\servlet\javax.servlet-api\4.0.1\javax.servlet-api-4.0.1.jar;C:\Users\Marcel\.m2\repository\junit\junit\4.13.2\junit-4.13.2.jar;C:\Users\Marcel\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;"/>
+    <property name="java.class.path" value="C:\calzado_ebenezer\demodos\target\test-classes;C:\calzado_ebenezer\demodos\target\classes;C:\Users\Marcel\.m2\repository\com\mysql\mysql-connector-j\9.1.0\mysql-connector-j-9.1.0.jar;C:\Users\Marcel\.m2\repository\com\google\protobuf\protobuf-java\4.26.1\protobuf-java-4.26.1.jar;C:\Users\Marcel\.m2\repository\jakarta\servlet\jakarta.servlet-api\6.0.0\jakarta.servlet-api-6.0.0.jar;C:\Users\Marcel\.m2\repository\junit\junit\4.13.2\junit-4.13.2.jar;C:\Users\Marcel\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;"/>
     <property name="java.vm.vendor" value="Eclipse Adoptium"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="user.variant" value=""/>
@@ -15,9 +15,9 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="MX"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Eclipse Adoptium\jdk-25.0.4.101-hotspot\bin"/>
-    <property name="sun.java.command" value="C:\Users\Marcel\AppData\Local\Temp\surefire3546727096056164235\surefirebooter16363929823212222413.jar C:\Users\Marcel\AppData\Local\Temp\surefire3546727096056164235 2026-10-08T00-08-55_979-jvmRun1 surefire5843039942487830035tmp surefire_013209244849691563488tmp"/>
+    <property name="sun.java.command" value="C:\Users\Marcel\AppData\Local\Temp\surefire17720711369779832106\surefirebooter3229051888093941957.jar C:\Users\Marcel\AppData\Local\Temp\surefire17720711369779832106 2026-10-08T02-39-31_484-jvmRun1 surefire9332364095321933154tmp surefire_014797591373158390712tmp"/>
     <property name="jdk.debug" value="release"/>
-    <property name="surefire.test.class.path" value="C:\calzado_ebenezer\demodos\target\test-classes;C:\calzado_ebenezer\demodos\target\classes;C:\Users\Marcel\.m2\repository\com\mysql\mysql-connector-j\9.1.0\mysql-connector-j-9.1.0.jar;C:\Users\Marcel\.m2\repository\com\google\protobuf\protobuf-java\4.26.1\protobuf-java-4.26.1.jar;C:\Users\Marcel\.m2\repository\javax\servlet\javax.servlet-api\4.0.1\javax.servlet-api-4.0.1.jar;C:\Users\Marcel\.m2\repository\junit\junit\4.13.2\junit-4.13.2.jar;C:\Users\Marcel\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;"/>
+    <property name="surefire.test.class.path" value="C:\calzado_ebenezer\demodos\target\test-classes;C:\calzado_ebenezer\demodos\target\classes;C:\Users\Marcel\.m2\repository\com\mysql\mysql-connector-j\9.1.0\mysql-connector-j-9.1.0.jar;C:\Users\Marcel\.m2\repository\com\google\protobuf\protobuf-java\4.26.1\protobuf-java-4.26.1.jar;C:\Users\Marcel\.m2\repository\jakarta\servlet\jakarta.servlet-api\6.0.0\jakarta.servlet-api-6.0.0.jar;C:\Users\Marcel\.m2\repository\junit\junit\4.13.2\junit-4.13.2.jar;C:\Users\Marcel\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="C:\Users\Marcel"/>
     <property name="user.language" value="es"/>
@@ -30,7 +30,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\Marcel\AppData\Local\Temp\surefire3546727096056164235\surefirebooter16363929823212222413.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\Marcel\AppData\Local\Temp\surefire17720711369779832106\surefirebooter3229051888093941957.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="25.0.4.1+1-LTS"/>
@@ -60,5 +60,5 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="69.0"/>
   </properties>
-  <testcase name="shouldAnswerWithTrue" classname="demodos.AppTest" time="0.009"/>
+  <testcase name="shouldAnswerWithTrue" classname="demodos.AppTest" time="0.011"/>
 </testsuite>

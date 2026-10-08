@@ -1,7 +1,10 @@
 demodos\Controlador\LoginServlet.class
+demodos\util\ApiResponse.class
 demodos\conexion\Conexion.class
 demodos\modelo\RegistroServlet.class
 demodos\dao\ProductoDao.class
 demodos\menu\MenuPrincipal.class
 demodos\dao\UsuarioDao.class
+demodos\Controlador\CerrarSesionServlet.class
+demodos\seguridad\PasswordUtil.class
 demodos\modelo\Producto.class

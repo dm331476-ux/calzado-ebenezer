@@ -1,4 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%
+    jakarta.servlet.http.HttpSession sesion = request.getSession(false);
+    if (sesion == null || sesion.getAttribute("usuario") == null
+            || sesion.getAttribute("rol") == null) {
+        response.sendRedirect("index.jsp");
+        return;
+    }
+    String rolSesion = (String) sesion.getAttribute("rol");
+%>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -18,14 +27,14 @@
             <div class="sidebar-header">
                 <img class="logo-sidebar" src="img/logo.png" alt="Logo Calzado Ebenezer">
                 <h2>EBENEZER</h2>
-                <span class="user-badge" id="badgeRol">Vendedor</span>
+                <span class="user-badge" id="badgeRol" data-rol="<%= rolSesion %>">Vendedor</span>
             </div>
             <nav class="sidebar-menu">
                 <a href="#" id="menuVentas" class="menu-item activo">🛒 Catálogo de Ventas</a>
                 <a href="#" id="menuBodega" class="menu-item">📦 Control de bodega</a>
                 <a href="#" id="menuFabrica" class="menu-item">🏭 Producción de Fábrica</a>
                 <a href="#" id="menuAdmin" class="menu-item">⚙️ Area Administrativa</a>
-                <a href="index.jsp" class="menu-item salir">🚪 Cerrar Sesión</a>
+                <a href="CerrarSesionServlet" class="menu-item salir">🚪 Cerrar Sesión</a>
             </nav>
         </aside>
 

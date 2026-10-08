@@ -29,54 +29,94 @@ window.alternarContrasena = function(idInput, boton) {
 // compartir este script entre páginas que no contienen todos los formularios.
 document.addEventListener('DOMContentLoaded', () => {
     
-    // Componentes de error comunes
     const capaError = document.getElementById('capaError');
     const btnCerrarError = document.getElementById('btnCerrarError');
+    const notificacion = capaError ? capaError.querySelector('.notificacion-ebenezer') : null;
+    const tituloNotificacion = capaError ? capaError.querySelector('.cabecera-transparente h2') : null;
+    const iconoNotificacion = capaError ? capaError.querySelector('.icono-circular-rojo span') : null;
+    const detalleNotificacion = capaError ? capaError.querySelector('.mensaje-italico') : null;
+    const etiquetaCodigo = capaError ? capaError.querySelector('.etiqueta-codigo') : null;
+    const codigoNotificacion = capaError ? capaError.querySelector('.numero-codigo') : null;
+    const mensajeNotificacion = capaError ? capaError.querySelector('.instruccion-gris') : null;
+    let destinoNotificacion = null;
+
+    // Usa la misma ventana para informar si una operación salió bien o necesita corregirse.
+    const mostrarNotificacion = (mensaje, esExito, destino, esRegistro, codigoHttp) => {
+        if (!capaError || !mensajeNotificacion) {
+            alert(mensaje);
+            if (esExito && destino) window.location.assign(destino);
+            return;
+        }
+
+        destinoNotificacion = esExito ? destino : null;
+        if (notificacion) notificacion.classList.toggle('exito', esExito);
+        if (tituloNotificacion) {
+            tituloNotificacion.textContent = esExito
+                ? (esRegistro ? 'REGISTRO COMPLETADO' : 'ACCESO CONCEDIDO')
+                : 'NO SE PUDO COMPLETAR';
+        }
+        if (iconoNotificacion) iconoNotificacion.textContent = esExito ? '✓' : 'X';
+        if (detalleNotificacion) {
+            detalleNotificacion.textContent = esExito ? 'Operación completada' : 'Operación fallida';
+        }
+        if (etiquetaCodigo) etiquetaCodigo.textContent = esExito ? 'ESTADO HTTP:' : 'CÓDIGO:';
+        if (codigoNotificacion) {
+            codigoNotificacion.textContent = esExito
+                ? `#${codigoHttp}`
+                : (esRegistro ? '#002' : '#001');
+        }
+        mensajeNotificacion.textContent = mensaje;
+        if (btnCerrarError) btnCerrarError.textContent = esExito ? 'CONTINUAR' : 'REINTENTAR';
+        capaError.style.display = 'flex';
+    };
+
+    // Envía el formulario al servidor y presenta el resultado que responde la API.
+    const enviarFormulario = async (form) => {
+        try {
+            const respuesta = await fetch(form.action, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+                },
+                body: new URLSearchParams(new FormData(form))
+            });
+            const resultado = await respuesta.json();
+
+            if (respuesta.ok && resultado.success) {
+                mostrarNotificacion(
+                    resultado.message,
+                    true,
+                    resultado.redirect,
+                    form.id === 'registroForm',
+                    respuesta.status
+                );
+            } else {
+                mostrarNotificacion(
+                    resultado.message || 'Revisa los datos e intenta de nuevo.',
+                    false,
+                    null,
+                    form.id === 'registroForm'
+                );
+            }
+        } catch (error) {
+            mostrarNotificacion(
+                'No se pudo completar la solicitud. Revisa tu conexión e intenta de nuevo.',
+                false,
+                null,
+                form.id === 'registroForm'
+            );
+        }
+    };
 
     // -----------------------------------------
     // A. CONTROL DEL FORMULARIO DE LOGIN
     // -----------------------------------------
     const loginForm = document.getElementById('loginForm');
     if (loginForm) {
-        loginForm.addEventListener('submit', (e) => {
-            // La validación de esta página se hace aquí en lugar de enviar el formulario.
+        loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const userEl = document.getElementById('userLogin');
-            const passEl = document.getElementById('passLogin');
-
-            if (userEl && passEl) {
-                const usuarioIngresado = userEl.value.trim();
-                const contrasenaIngresada = passEl.value;
-
-                const usuarioRegistrado = localStorage.getItem('nombreUsuarioEbenezer');
-                const contrasenaRegistrada = localStorage.getItem('passUsuarioEbenezer');
-
-                // Se aceptan las credenciales administrativas predefinidas o las guardadas
-                // por el formulario de registro; si coinciden, se conserva el rol y se abre el dashboard.
-                if (usuarioIngresado === "admin" && contrasenaIngresada === "ebenezer2026") {
-                    localStorage.setItem('rolUsuarioEbenezer', 'Administrador');
-                    alert("¡Bienvenido Administrador a Calzado Ebenezer!");
-                    window.location.href = "dashboard.jsp";
-                }
-                else if (usuarioRegistrado && usuarioIngresado === usuarioRegistrado && contrasenaIngresada === contrasenaRegistrada) {
-                    const rolRegistrado = localStorage.getItem('rolUsuarioEbenezer');
-                    if (rolRegistrado === 'Administrador') {
-                        alert(`¡Bienvenido Administrador, ${usuarioIngresado}!`);
-                    } else {
-                        alert(`¡Bienvenido al sistema, ${usuarioIngresado}!`);
-                    }
-                    window.location.href = "dashboard.jsp";
-                }
-                else {
-                    if (capaError) {
-                        capaError.style.display = 'flex';
-                        const mensaje = capaError.querySelector('.instruccion-gris');
-                        if (mensaje) {
-                            mensaje.textContent = 'Usuario o contraseña incorrectos. Verifique sus credenciales.';
-                        }
-                    }
-                }
-            }
+            await enviarFormulario(loginForm);
         });
     }
 
@@ -85,47 +125,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // -----------------------------------------
     const registroForm = document.getElementById('registroForm');
     if (registroForm) {
-        registroForm.addEventListener('submit', (e) => {
+        registroForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-
-            const nombreEl = document.getElementById('nombreCompleto');
-            const usuarioEl = document.getElementById('usuarioRegistro');
-            const correoEl = document.getElementById('correoRegistro');
-            const rolEl = document.getElementById('rolUsuario');
-            const passEl = document.getElementById('passRegistro');
-
-            if (!nombreEl || !usuarioEl || !correoEl || !rolEl || !passEl) {
-                return;
-            }
-
-            const nombre = nombreEl.value.trim();
-            const usuario = usuarioEl.value.trim();
-            const correo = correoEl.value.trim();
-            const rol = rolEl.value;
-            const contrasena = passEl.value;
-
-            // Se exigen todos los datos y una contraseña de seis caracteres como mínimo
-            // antes de guardar el perfil en el almacenamiento local del navegador.
-            if (nombre === '' || usuario === '' || correo === '' || rol === '' || contrasena.length < 6) {
-                if (capaError) {
-                    capaError.style.display = 'flex';
-                    const mensaje = capaError.querySelector('.instruccion-gris');
-                    if (mensaje) {
-                        mensaje.textContent = 'Complete todos los campos correctamente y use al menos 6 caracteres.';
-                    }
-                } else {
-                    alert('Complete todos los campos correctamente y use al menos 6 caracteres.');
-                }
-                return;
-            }
-
-            localStorage.setItem('nombreUsuarioEbenezer', usuario);
-            localStorage.setItem('correoUsuarioEbenezer', correo);
-            localStorage.setItem('rolUsuarioEbenezer', rol);
-            localStorage.setItem('passUsuarioEbenezer', contrasena);
-
-            alert(`¡Registro Exitoso!\nUsuario: ${usuario}\nRol: ${rol.toUpperCase()}`);
-            window.location.href = 'index.jsp';
+            await enviarFormulario(registroForm);
         });
     }
 
@@ -134,27 +136,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // -----------------------------------------
     if (btnCerrarError) {
         btnCerrarError.addEventListener('click', () => {
+            if (destinoNotificacion) {
+                window.location.assign(destinoNotificacion);
+                return;
+            }
+
             if (capaError) capaError.style.display = 'none';
 
             const passLogin = document.getElementById('passLogin');
             if (passLogin) passLogin.value = "";
-
-            const nombreRegistro = document.getElementById('nombreCompleto');
-            const usuarioRegistro = document.getElementById('usuarioRegistro');
-            const correoRegistro = document.getElementById('correoRegistro');
-            const rolRegistro = document.getElementById('rolUsuario');
             const passRegistro = document.getElementById('passRegistro');
-
-            if (nombreRegistro) nombreRegistro.value = "";
-            if (usuarioRegistro) usuarioRegistro.value = "";
-            if (correoRegistro) correoRegistro.value = "";
-            if (rolRegistro) rolRegistro.value = "";
             if (passRegistro) passRegistro.value = "";
-
-            const mensaje = capaError ? capaError.querySelector('.instruccion-gris') : null;
-            if (mensaje) {
-                mensaje.textContent = 'Complete todos los campos correctamente.';
-            }
         });
     }
 
@@ -163,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // -----------------------------------------
     const badgeRol = document.getElementById('badgeRol');
     if (badgeRol) {
-        const rolGuardado = localStorage.getItem('rolUsuarioEbenezer') || 'vendedor';
+        const rolGuardado = badgeRol.dataset.rol || 'vendedor';
 
         // 1. Personalizar el Badge Visual de Roles
         if (rolGuardado === 'bodega') {
@@ -191,6 +183,11 @@ document.addEventListener('DOMContentLoaded', () => {
         // Muestra el contenido asociado al rol o sección seleccionada y ajusta la cuadrícula.
         const mostrarSeccion = (tipo) => {
             if (!mainContent) return;
+            if (rolGuardado !== 'Administrador'
+                    && tipo !== (rolGuardado === 'bodega' ? 'bodega'
+                        : rolGuardado === 'fabrica' ? 'fabrica' : 'ventas')) {
+                return;
+            }
 
             const catalogoVisible = tipo === 'ventas';
             const inventarioVisible = tipo === 'bodega';

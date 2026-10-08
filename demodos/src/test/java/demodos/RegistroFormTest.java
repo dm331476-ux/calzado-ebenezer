@@ -14,10 +14,10 @@ import org.junit.Test;
 public class RegistroFormTest {
 
     /**
-     * Revisa que se pidan usuario, contraseña y rol, y que los datos se envíen al servlet.
+     * Revisa los datos requeridos y confirma que el rol público sea vendedor.
      */
     @Test
-    public void formularioDebeEnviarLosCamposNecesariosParaElRegistro() throws Exception {
+    public void formularioDebeEnviarLosCamposNecesariosYNoPermitirElegirElRol() throws Exception {
         // Lee el formulario de registro para verificar sus campos y destino.
         Path registroJsp = Paths.get("src/main/webapp/registro.jsp");
         String contenido = Files.readString(registroJsp);
@@ -25,7 +25,8 @@ public class RegistroFormTest {
         // Confirma que estén presentes los datos requeridos y el destino del formulario.
         assertTrue("Debe existir el campo usuario en el formulario", contenido.contains("name=\"usuario\""));
         assertTrue("Debe existir el campo password en el formulario", contenido.contains("name=\"password\""));
-        assertTrue("Debe existir el campo rol en el formulario", contenido.contains("name=\"rol\""));
+        assertTrue("El registro público debe indicar el rol asignado", contenido.contains("value=\"Vendedor\""));
+        assertTrue("El formulario no debe permitir elegir roles privilegiados", !contenido.contains("name=\"rol\""));
         assertTrue("Debe enviar el formulario al RegistroServlet", contenido.contains("action=\"RegistroServlet\""));
     }
 }

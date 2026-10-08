@@ -1,58 +1,84 @@
 package demodos.dao;
 
 import demodos.conexion.Conexion;
+import demodos.seguridad.PasswordUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Se encarga de guardar usuarios y comprobar sus datos de acceso.
+ * Guarda las cuentas nuevas y busca los datos necesarios para iniciar sesión.
  */
 public class UsuarioDao {
 
     /**
-     * Guarda los datos de una cuenta nueva y devuelve si se pudo completar el registro.
+     * Crea una cuenta de vendedor y guarda la contraseña en formato protegido.
      */
-    public boolean registrarUsuario(String nombre, String usuario, String email, String password) {
-        String sql = "INSERT INTO usuarios (nombre, usuario, email, password) VALUES (?, ?, ?, ?)";
+    public void registrarUsuario(String nombre, String usuario, String email, String password)
+            throws SQLException {
+        String sql = "INSERT INTO usuarios (nombre, usuario, email, password, rol) "
+                + "VALUES (?, ?, ?, ?, 'vendedor')";
 
-        // Usa la conexión compartida del sistema y prepara los datos para guardarlos.
         try (Connection con = Conexion.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
-
-            // Coloca cada dato de la cuenta en el campo correspondiente.
             ps.setString(1, nombre);
             ps.setString(2, usuario);
             ps.setString(3, email);
-            ps.setString(4, password);
-
-            // Informa si se agregó una fila a la tabla de usuarios.
-            return ps.executeUpdate() > 0;
-
-        } catch (SQLException e) {
-            System.out.println("Error al registrar: " + e.getMessage());
-            return false;
+            ps.setString(4, PasswordUtil.hash(password));
+            ps.executeUpdate();
         }
     }
 
     /**
-     * Revisa si existe una cuenta con el usuario y la contraseña recibidos.
+     * Comprueba una cuenta por nombre de usuario o correo y devuelve su rol si coincide.
      */
-    public boolean validarUsuario(String usuario, String password) {
-        String sql = "SELECT * FROM usuarios WHERE usuario = ? AND password = ?";
-        // Busca una coincidencia usando ambos datos de acceso.
+    public String autenticarUsuario(String usuarioOEmail, String password) throws SQLException {
+        String sql = "SELECT id, password, rol FROM usuarios "
+                + "WHERE usuario = ? OR email = ? LIMIT 2";
+
         try (Connection con = Conexion.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, usuarioOEmail);
+            ps.setString(2, usuarioOEmail);
 
-            ps.setString(1, usuario);
-            ps.setString(2, password);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (!rs.next()) {
+                    return null;
+                }
+                int id = rs.getInt("id");
+                String storedPassword = rs.getString("password");
+                String rol = rs.getString("rol");
+                if (rs.next()) {
+                    return null;
+                }
 
-            // Si la consulta encuentra una fila, los datos coinciden con una cuenta.
-            return ps.executeQuery().next();
+                if (!PasswordUtil.matches(password, storedPassword)) {
+                    return null;
+                }
 
-        } catch (SQLException e) {
-            System.out.println("Error al validar: " + e.getMessage());
-            return false;
+                // Actualiza la contraseña antigua al formato protegido cuando el acceso es correcto.
+                if (PasswordUtil.needsRehash(storedPassword)) {
+                    String updateSql = "UPDATE usuarios SET password = ? WHERE id = ?";
+                    try (PreparedStatement update = con.prepareStatement(updateSql)) {
+                        update.setString(1, PasswordUtil.hash(password));
+                        update.setInt(2, id);
+                        update.executeUpdate();
+                    }
+                }
+
+                return esRolValido(rol) ? rol : "vendedor";
+            }
         }
+    }
+
+    /**
+     * Acepta únicamente los roles reconocidos; los valores desconocidos usan el rol básico.
+     */
+    private static boolean esRolValido(String rol) {
+        return "Administrador".equals(rol)
+                || "vendedor".equals(rol)
+                || "bodega".equals(rol)
+                || "fabrica".equals(rol);
     }
 }
