@@ -1,6 +1,87 @@
 // =================================================================
 // 1. FUNCIÓN GLOBAL: ALTERNAR VISIBILIDAD DE CONTRASEÑA
 // =================================================================
+const carritoVenta = [];
+
+const actualizarCarrito = () => {
+    const elementosCarrito = document.getElementById('elementosCarrito');
+    const totalVenta = document.getElementById('totalVenta');
+    if (!elementosCarrito || !totalVenta) {
+        console.error('No se encontraron los elementos del carrito de venta.');
+        return;
+    }
+
+    elementosCarrito.replaceChildren();
+
+    if (carritoVenta.length === 0) {
+        const mensajeVacio = document.createElement('p');
+        mensajeVacio.className = 'carrito-vacio';
+        mensajeVacio.textContent = 'No hay productos en la venta actual.';
+        elementosCarrito.appendChild(mensajeVacio);
+    } else {
+        carritoVenta.forEach((producto) => {
+            const item = document.createElement('div');
+            item.className = 'item-carrito';
+
+            const informacion = document.createElement('div');
+            informacion.className = 'item-info';
+
+            const nombre = document.createElement('h4');
+            nombre.textContent = producto.nombre;
+
+            const precio = document.createElement('p');
+            precio.textContent = `${producto.cantidad} x $${producto.precio.toLocaleString('es-CO')}`;
+
+            const botonEliminar = document.createElement('button');
+            botonEliminar.type = 'button';
+            botonEliminar.className = 'btn-eliminar-item';
+            botonEliminar.textContent = '×';
+            botonEliminar.setAttribute('aria-label', `Eliminar ${producto.nombre} del carrito`);
+            botonEliminar.addEventListener('click', () => {
+                window.eliminarDelCarrito(producto.nombre);
+            });
+
+            informacion.append(nombre, precio);
+            item.append(informacion, botonEliminar);
+            elementosCarrito.appendChild(item);
+        });
+    }
+
+    const total = carritoVenta.reduce(
+        (suma, producto) => suma + producto.precio * producto.cantidad,
+        0
+    );
+    totalVenta.textContent = `$${total.toLocaleString('es-CO')}`;
+};
+
+window.agregarAlCarrito = function(nombre, precio) {
+    if (typeof nombre !== 'string' || nombre.trim() === ''
+            || !Number.isFinite(precio) || precio <= 0) {
+        console.error('No se puede agregar un producto con nombre o precio inválido.');
+        return;
+    }
+
+    const productoExistente = carritoVenta.find((producto) => producto.nombre === nombre);
+    if (productoExistente) {
+        productoExistente.cantidad += 1;
+    } else {
+        carritoVenta.push({ nombre, precio, cantidad: 1 });
+    }
+
+    actualizarCarrito();
+};
+
+window.eliminarDelCarrito = function(nombre) {
+    const indiceProducto = carritoVenta.findIndex((producto) => producto.nombre === nombre);
+    if (indiceProducto === -1) {
+        console.error(`No se encontró el producto "${nombre}" en el carrito.`);
+        return;
+    }
+
+    carritoVenta.splice(indiceProducto, 1);
+    actualizarCarrito();
+};
+
 /**
  * Muestra u oculta el texto de un campo de contraseña y actualiza el icono del botón.
  * @param {string} idInput Identificador del campo cuya visibilidad se cambia.
