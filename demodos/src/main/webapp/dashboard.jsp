@@ -233,6 +233,6 @@
     </div>
 
     <%-- Controla el cambio de vistas y las acciones disponibles en el panel. --%>
-    <script src="js/autenticacion.js"></script>
+    <script src="js/autenticacion.js?v=20261028-ventas"></script>
 </body>
 </html>
