@@ -232,7 +232,28 @@
         </main>
     </div>
 
+    <div class="pantalla-oscura" id="capaError">
+        <div class="notificacion-ebenezer">
+            <div class="cabecera-transparente">
+                <div class="icono-circular-rojo">
+                    <span id="iconoFactura">✓</span>
+                </div>
+                <h2 id="tituloFactura">FACTURA GENERADA</h2>
+            </div>
+            <img src="${pageContext.request.contextPath}/img/linea-sombra.png" alt="" class="linea-divisor-PNG">
+            <div class="cuerpo-notificacion">
+                <p class="mensaje-italico" id="detalleFactura">Venta completada</p>
+                <div class="contenedor-codigo">
+                    <span class="etiqueta-codigo" id="etiquetaFactura">TOTAL:</span>
+                    <span class="numero-codigo" id="totalFactura"></span>
+                </div>
+                <p class="instruccion-gris" id="mensajeFactura"></p>
+                <button type="button" class="btn-reintentar-transp" id="btnCerrarError">CONTINUAR</button>
+            </div>
+        </div>
+    </div>
+
     <%-- Controla el cambio de vistas y las acciones disponibles en el panel. --%>
-    <script src="js/autenticacion.js?v=20261028-ventas"></script>
+    <script src="js/autenticacion.js?v=20261029-factura"></script>
 </body>
 </html>

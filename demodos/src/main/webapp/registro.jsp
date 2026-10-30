@@ -36,11 +36,6 @@
             </div>
 
             <div class="grupo-input">
-                <label>Rol en el sistema</label>
-                <input type="text" value="Vendedor" disabled>
-            </div>
-
-            <div class="grupo-input">
                 <label for="passRegistro">Contraseña</label>
                 <div class="contenedor-password-ojo">
                     <input id="passRegistro" type="password" name="password" placeholder="Contraseña" required>

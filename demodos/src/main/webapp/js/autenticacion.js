@@ -82,6 +82,54 @@ window.eliminarDelCarrito = function(nombre) {
     actualizarCarrito();
 };
 
+window.procesarFactura = function() {
+    const capaFactura = document.getElementById('capaError');
+    const notificacionFactura = capaFactura
+        ? capaFactura.querySelector('.notificacion-ebenezer')
+        : null;
+    const tituloFactura = document.getElementById('tituloFactura');
+    const iconoFactura = document.getElementById('iconoFactura');
+    const detalleFactura = document.getElementById('detalleFactura');
+    const etiquetaFactura = document.getElementById('etiquetaFactura');
+    const totalFactura = document.getElementById('totalFactura');
+    const mensajeFactura = document.getElementById('mensajeFactura');
+    const botonCerrar = document.getElementById('btnCerrarError');
+
+    if (!capaFactura || !notificacionFactura || !tituloFactura || !iconoFactura
+            || !detalleFactura || !etiquetaFactura || !totalFactura || !mensajeFactura
+            || !botonCerrar) {
+        console.error('No se encontraron los elementos para mostrar la notificación de factura.');
+        return;
+    }
+
+    const hayProductos = carritoVenta.length > 0;
+    const total = carritoVenta.reduce(
+        (suma, producto) => suma + producto.precio * producto.cantidad,
+        0
+    );
+
+    notificacionFactura.classList.toggle('exito', hayProductos);
+    tituloFactura.textContent = hayProductos ? 'FACTURA GENERADA' : 'CARRITO VACÍO';
+    iconoFactura.textContent = hayProductos ? '✓' : 'X';
+    detalleFactura.textContent = hayProductos
+        ? 'Venta completada correctamente'
+        : 'No se pudo generar la factura';
+    etiquetaFactura.textContent = hayProductos ? 'TOTAL:' : 'ESTADO:';
+    totalFactura.textContent = hayProductos ? `$${total.toLocaleString('es-CO')}` : 'SIN PRODUCTOS';
+    mensajeFactura.textContent = hayProductos
+        ? carritoVenta.map((producto) =>
+            `${producto.nombre} (${producto.cantidad})`
+        ).join(', ')
+        : 'Agrega al menos un producto al carrito e intenta de nuevo.';
+    botonCerrar.textContent = 'CONTINUAR';
+    capaFactura.style.display = 'flex';
+
+    if (hayProductos) {
+        carritoVenta.length = 0;
+        actualizarCarrito();
+    }
+};
+
 /**
  * Muestra u oculta el texto de un campo de contraseña y actualiza el icono del botón.
  * @param {string} idInput Identificador del campo cuya visibilidad se cambia.
